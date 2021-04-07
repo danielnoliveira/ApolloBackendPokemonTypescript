@@ -1,6 +1,9 @@
 const Pokemon = require('../database/models/Pokemom');
 const Trainer = require('../database/models/Trainer');
 
+import {IPokemon} from './../database/models/IPokemon';
+import {ITrainer} from './../database/models/ITrainer';
+
 interface QueryPokemons {
     generation: string;
     is_legendary: string;
@@ -14,7 +17,7 @@ interface MutationCreateTrainer {
 
 const Resolvers = {
     Query: {
-        pokemons(_:any,{generation , is_legendary, type1, type2, abilities}:QueryPokemons){
+        pokemons(_:any,{generation , is_legendary, type1, type2, abilities}:QueryPokemons):Array<IPokemon>{
             const params:any = {};
             if(generation){
                 params.generation = generation;
@@ -33,14 +36,14 @@ const Resolvers = {
             }
             return Pokemon.find(params).limit(10);
         },
-        trainer(_:any,{name}:{name:string}){
+        trainer(_:any,{name}:{name:string}):ITrainer{
             const params: any = {};
             params.name = name;
             return Trainer.findOne(params).populate('pokemons');
         }
     },
     Mutation: {
-        createTrainer(_:any, {trainer}:MutationCreateTrainer){
+        createTrainer(_:any, {trainer}:MutationCreateTrainer):ITrainer{
             const newTrainer = new Trainer(trainer);
             return newTrainer.save();
         }
