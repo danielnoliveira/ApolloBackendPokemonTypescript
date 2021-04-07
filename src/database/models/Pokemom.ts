@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+import { model, Schema, Model } from 'mongoose';
+import {IPokemon} from './IPokemon';
 
-const PokemonSchema = mongoose.Schema({
+const PokemonSchema: Schema = new Schema({
     abilities: [String],
     against_bug: String,
     against_dark: String,
@@ -44,6 +45,6 @@ const PokemonSchema = mongoose.Schema({
     is_legendary: String,
 });
 
-const Pokemon = mongoose.model('Pokemon',PokemonSchema);
+const Pokemon: Model<IPokemon> = model('Pokemon',PokemonSchema);
 
 export = Pokemon;
