@@ -34,7 +34,8 @@ const Resolvers = {
             if(abilities){
                 params.abilities = abilities;
             }
-            return Pokemon.find(params).limit(10);
+            const result = Pokemon.aggregate([{$match:params},{$sample: {size: 10}}]);
+            return result;
         },
         trainer(_:any,{name}:{name:string}):ITrainer{
             const params: any = {};
