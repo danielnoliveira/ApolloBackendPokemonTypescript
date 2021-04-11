@@ -7,7 +7,7 @@ Aplicação backend com apollo-server, graphql e mongoose.
 ## Tarefas
 
 <ol>
-    <li>Script para povoar um banco ed dados com o conteudo de pokemon.csv :heavy_check_mark:</li>
+    <li>Script para povoar um banco de dados com o conteudo de pokemon.csv :heavy_check_mark:</li>
     <li>Criar uma query em graphql que permita a escolha aleatoria de até 10 pokemons :heavy_check_mark:
         <ul>
             <li>Delimitar as escolhas por filtros :heavy_check_mark:
