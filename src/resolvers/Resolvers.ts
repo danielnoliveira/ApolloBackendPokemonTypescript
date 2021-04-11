@@ -1,5 +1,6 @@
 const Pokemon = require('../database/models/Pokemom');
 const Trainer = require('../database/models/Trainer');
+const History = require('../database/models/History');
 
 import {IPokemon} from './../database/models/IPokemon';
 import {ITrainer} from './../database/models/ITrainer';
@@ -17,7 +18,7 @@ interface MutationCreateTrainer {
 
 const Resolvers = {
     Query: {
-        pokemons(_:any,{generation , is_legendary, type1, type2, abilities}:QueryPokemons):Array<IPokemon>{
+        async pokemons(_:any,{generation , is_legendary, type1, type2, abilities}:QueryPokemons):Promise<Array<IPokemon>>{
             const params:any = {};
             if(generation){
                 params.generation = generation;
@@ -34,7 +35,11 @@ const Resolvers = {
             if(abilities){
                 params.abilities = abilities;
             }
-            const result = Pokemon.aggregate([{$match:params},{$sample: {size: 10}}]);
+            const result: Array<IPokemon> = await Pokemon.aggregate([{$match:params},{$sample: {size: 10}}]).exec();
+            
+            const rowHistory = new History({pokemons:result.map(p => p._id)});
+            rowHistory.save();
+            
             return result;
         },
         trainer(_:any,{name}:{name:string}):ITrainer{
