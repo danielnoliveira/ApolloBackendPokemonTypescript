@@ -19,7 +19,7 @@ Aplicação backend com apollo-server, graphql e mongoose.
             <li>abilities (["ability_name_1"],["ability_name_1","ability_name_2"],["ability_name_1","ability_name_2","ability_name_3"])</li>
             </ul>
             </li>
-            <li>Salvar a lista com os pokemons sorteados em uma collections :heavy check_mark:</li>
+            <li>Salvar a lista com os pokemons sorteados em uma collections :heavy_check_mark:</li>
         </ul>
     </li>
     <li>Extras
